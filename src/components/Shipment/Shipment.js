@@ -14,15 +14,19 @@ const Shipment = () => {
 
             < input name="name" defaultValue={loggedInUser.name} ref={register({ required: true })} placeholder="Name" />
             { errors.exampleRequired && <span>Name is required</span>}
+            <br />
 
-            < input name="email" defaultValue={loggedInUser.email} ref={register({ required: true })} placeholder="Email"/>
+            < input name="email" defaultValue={loggedInUser.email} ref={register({ required: true })} placeholder="Email" />
             { errors.exampleRequired && <span>Email is required</span>}
+            <br />
 
-            < input name="address" ref={register({ required: true })} placeholder="Address"/>
+            < input name="address" ref={register({ required: true })} placeholder="Address" />
             { errors.exampleRequired && <span>Address is required</span>}
+            <br />
 
-            < input name="phone" ref={register({ required: true })} placeholder="Phone"/>
+            < input name="phone" ref={register({ required: true })} placeholder="Phone" />
             { errors.exampleRequired && <span>Phone Number is required</span>}
+            <br />
 
             <input type="submit" />
         </form >
