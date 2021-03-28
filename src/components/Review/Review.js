@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getDatabaseCart, processOrder, removeFromDatabaseCart } from '../../utilities/databaseManager';
 import ReviewItem from '../ReviewItem/ReviewItem';
 import Cart from '../Cart/Cart';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import happyImage from '../../images/giphy.gif';
 
 const Review = () => {
@@ -13,7 +13,7 @@ const Review = () => {
     const history = useHistory()
 
     const handleProceedCheckout = () => {
-        console.log('go');
+        // console.log('go');
         history.push('/shipment');
     }
 
