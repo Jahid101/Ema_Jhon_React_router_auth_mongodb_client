@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { UserContext } from '../../App';
 import { getDatabaseCart, processOrder } from '../../utilities/databaseManager';
@@ -7,9 +7,23 @@ import ProcessPayment from '../ProcessPayment/ProcessPayment';
 const Shipment = () => {
     const { register, handleSubmit, watch, errors } = useForm();
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+    const [shippingData, setShippingData] = useState(null);
+
+
     const onSubmit = data => {
+        setShippingData(data);
+    };
+
+
+    const handlePaymentSuccess = paymentId => {
         const savedCart = getDatabaseCart();
-        const orderDetails = { ...loggedInUser, products: savedCart, shipment: data, orderTime: new Date() };
+        const orderDetails = {
+            ...loggedInUser,
+            products: savedCart,
+            shipment: shippingData,
+            paymentId,
+            orderTime: new Date()
+        };
 
         fetch('https://intense-tor-05481.herokuapp.com/addOrder', {
             method: 'POST',
@@ -25,13 +39,14 @@ const Shipment = () => {
                     alert('Your order placed successfully')
                 }
             })
-    };
+    }
+
 
     console.log(watch("example")); // watch input value by passing the name of it
 
     return (
         <div className="row">
-            <div className="col-md-6">
+            <div style={{ display: shippingData ? 'none' : 'block' }} className="col-md-6">
                 < form onSubmit={handleSubmit(onSubmit)} >
 
                     < input name="name" defaultValue={loggedInUser.name} ref={register({ required: true })} placeholder="Name" />
@@ -54,9 +69,9 @@ const Shipment = () => {
                 </form >
             </div>
 
-            <div className="col-md-6">
+            <div style={{ display: shippingData ? 'block' : 'none' }} className="col-md-6">
                 <h1>Pay for me</h1>
-                <ProcessPayment></ProcessPayment>
+                <ProcessPayment handlePayment={handlePaymentSuccess}></ProcessPayment>
             </div>
         </div>
     );
