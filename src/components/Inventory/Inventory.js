@@ -5,7 +5,7 @@ const inventory = () => {
 
     const handleAddProduct = () => {
         const product = {}
-        fetch('http://localhost:5000/addProduct', {
+        fetch('https://intense-tor-05481.herokuapp.com/addProduct', {
             method: 'POST',
             headers: {
                 'content-Type' : 'application/json'
